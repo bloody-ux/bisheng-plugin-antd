@@ -67,7 +67,7 @@ function getStyleNode(contentChildren) {
   )[0];
 }
 
-module.exports = ({ markdownData, isBuild, noPreview, babelConfig, pxtorem }) => {
+module.exports = ({ markdownData, isBuild, noPreview, babelConfig, pxtorem, staticPath }) => {
   const meta = markdownData.meta;
   meta.id = meta.filename.replace(/\.md$/, '').replace(/\//g, '-');
   // Should throw debugging demo while publish.
@@ -132,6 +132,7 @@ module.exports = ({ markdownData, isBuild, noPreview, babelConfig, pxtorem }) =>
   if (meta.iframe) {
     const html = nunjucks.renderString(tmpl, {
       id: meta.id,
+      staticPath,
       style: markdownData.style,
       script: markdownData.preview.code,
       reactRouter: meta.reactRouter === 'react-router' ? 'react-router@3/umd/ReactRouter' :
